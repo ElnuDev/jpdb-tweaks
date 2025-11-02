@@ -22,3 +22,12 @@ In order for it to render properly, you'll have to add this formatting to your w
     | safeHTML
 }}
 ```
+
+The escaped spaces `\ ` around the bolded key vocabulary word is necessary, because otherwise the Markdown syntax won't work. If you are using Hugo, ensure that the `cjk` extension for goldmark is enabled with `escapedSpace` on in your hugo.toml:
+
+```TOML
+[markup]
+  [markup.goldmark.extensions.cjk]
+    enable = true
+    escapedSpace = true
+```
