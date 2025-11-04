@@ -20,5 +20,9 @@
     "gecko": {
       "id": "jpdb-tweaks@elnu.com"
     }
-  }
+  },
+  "permissions": [
+  	"storage"
+  ],
+  "options_page": "options.html"
 }
