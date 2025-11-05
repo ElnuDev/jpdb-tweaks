@@ -13,7 +13,7 @@ function copy({ "copy.bold": bold, "copy.english": english, "copy.blockquote": b
 			} else if (child.nodeType == Node.ELEMENT_NODE) {
 				if (child.classList.contains("highlight")) {
 					const childMd = markdown(child);
-					if (bold) md += `\\ **${markdown(child)}**\\ `
+					if (bold) md += `\\ **${childMd}**\\ `
 					else md += childMd;
 				} else {
 					const kanji = child.childNodes[0].textContent;
