@@ -1,10 +1,10 @@
 const storage = "browser" in window ? browser.storage : chrome.storage;
 
 storage.sync.get().then(options => {
-	if (options["copy"]) copy();
+	if (options["copy.enabled"]) copy(options);
 });
 
-function copy() {
+function copy({ "copy.bold": bold, "copy.english": english, "copy.blockquote": blockquote }) {
 	function markdown(parent) {
 		let md = "";
 		for (const child of parent.childNodes) {
@@ -12,9 +12,13 @@ function copy() {
 				md += child.textContent;
 			} else if (child.nodeType == Node.ELEMENT_NODE) {
 				if (child.classList.contains("highlight")) {
-					md += `\\ **${markdown(child)}**\\ `
+					const childMd = markdown(child);
+					if (bold) md += `\\ **${markdown(child)}**\\ `
+					else md += childMd;
 				} else {
-					md += `[${child.childNodes[0].textContent}]{${child.childNodes[1].innerHTML}}`;
+					const kanji = child.childNodes[0].textContent;
+					const furigana = child.childNodes[1].textContent;
+					md += `[${kanji}]{${furigana}}`;
 				}
 			}
 		}
@@ -24,9 +28,19 @@ function copy() {
 	function exampleMarkdown(example) {
 		let md = "";
 		const jp = example.querySelector(".jp");
-		if (jp) md += `> ${markdown(jp)}`;
-		const en = example.querySelector(".en");
-		if (en) md += `\n> ${en.innerHTML.trim()}`;
+		if (jp) {
+			if (blockquote) md += "> ";
+			md += markdown(jp);
+		}
+		if (english) {
+			const en = example.querySelector(".en");
+			if (en) {
+				md += "\n";
+				if (blockquote) md += "> ";
+				else md += "\n";
+				md += en.innerHTML.trim();
+			}
+		}
 		return md;
 	}
 

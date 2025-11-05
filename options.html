@@ -4,10 +4,23 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>jpdb.io tweaks</title>
+	<link rel="stylesheet" href="missing.css">
 	<script src="options.js"></script>
 </head>
 <body>
-    <h1>Options</h1>
-    <label><input type="checkbox" name="copy"> Copy button</label>
+	<main>
+		<h1><img src="favicon48.png" alt="jpdb.io"> jpdb.io tweaks</h1>
+		<br>
+		<button id="restoreDefaults">Restore defaults</button>
+		<p>If you already have jpdb.io open, a refresh is required for changes to apply.</p>
+		<fieldset>
+			<legend>Copy button</legend>
+			<label><input type="checkbox" name="copy.enabled" role="switch"> Enabled</label>
+			<br>
+			<label><input type="checkbox" name="copy.bold" role="switch"> Bold key vocab word</label>
+			<label><input type="checkbox" name="copy.english" role="switch"> Include English translation</label>
+			<label><input type="checkbox" name="copy.blockquote" role="switch"> Blockquote</label>
+		</fieldset>
+	</main>
 </body>
 </html>
