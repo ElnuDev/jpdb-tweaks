@@ -1,7 +1,9 @@
-const storage = "browser" in window ? browser.storage : chrome.storage;
+const browser = "browser" in this ? browser : chrome;
+const storage = browser.storage;
 
 storage.sync.get().then(options => {
 	if (options["copy.enabled"]) copy(options);
+	if (options["image.enabled"]) image(options);
 });
 
 function copy({ "copy.bold": bold, "copy.english": english, "copy.blockquote": blockquote }) {
@@ -60,4 +62,67 @@ function copy({ "copy.bold": bold, "copy.english": english, "copy.blockquote": b
 			setTimeout(resetIcon, 1000);
 		});
 	}
+}
+
+function image({}) {
+	const style = document.createElement("style");
+	document.head.appendChild(style);
+	style.innerHTML = ".review-hidden .answer-box img { display: none; }";
+
+	let img;
+
+	function refresh() {
+		const retrigger = () => setTimeout(refresh, 10);
+		try {
+			const container = document.querySelector(".answer-box");
+			if (!container || container.querySelector("img")) {
+				retrigger();
+				return;
+			}
+
+			// back || front
+			const tmp = container.querySelector(".plain .plain");
+			const front = tmp === null;
+			const query = furiganaToKanji(tmp || container.querySelector(".plain div:not(:empty)"));
+
+			const addImage = () => {
+				container.appendChild(document.createElement("br"));
+				container.appendChild(img);
+			};
+			if (typeof img !== "undefined") {
+				if (front) retrigger();
+				else addImage();
+			} else {
+				browser.runtime
+					.sendMessage({ query })
+					.then(dataUrl => {
+						img = document.createElement("img");
+						img.src = dataUrl;
+
+						if (!container.matches(".review-reveal *") || container.querySelector("img")) {
+							retrigger();
+							return;
+						}
+						if (front) retrigger()
+						else addImage();
+					});
+			}
+		} catch(error) {
+			console.error(error);
+			retrigger();
+		}
+	};
+	refresh();
+}
+
+function furiganaToKanji(el) {
+	kanji = ""
+	for (const child of el.childNodes) {
+		if (child.nodeType == Node.TEXT_NODE) {
+			kanji += child.textContent;
+		} else if (child.nodeType == Node.ELEMENT_NODE && child.childNodes.length > 0) {
+			kanji += child.childNodes[0].textContent;
+		}
+	}
+	return kanji;
 }

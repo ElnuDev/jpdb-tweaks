@@ -5,11 +5,17 @@
   "author": "ElnuDev",
   "homepage_url": "https://github.com/ElnuDev/jpdb-tweaks",
   "description": "Simple tweaks for jpdb.io, a Japanese dictionary and spaced repetition system. Adds copy markdown button to example sentences.",
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://jpdb.io/*"],
       "js": ["main.js"]
     }
+  ],
+  "host_permissions": [
+  	"https://www.bing.com/images/search"
   ],
   "icons": {
     "16": "favicon16.png",

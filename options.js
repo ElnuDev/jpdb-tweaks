@@ -5,6 +5,7 @@ const optionDefaults = {
 	"copy.bold": true,
 	"copy.english": true,
 	"copy.blockquote": true,
+	"image.enabled": false,
 };
 
 async function loadState() {
