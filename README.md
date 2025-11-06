@@ -1,8 +1,14 @@
 # jpdb.io tweaks
 
-![Screenshot](screenshot.png)
+Simple tweaks for [jpdb.io](https://jpdb.io), a Japanese dictionary and spaced repetition system. If jpdb.io makes breaking changes to their UI and this extension stops working, please open an issue!
 
-Simple tweaks for [jpdb.io](https://jpdb.io), a Japanese dictionary and spaced repetition system. **Adds copy markdown button to example sentences.** If jpdb.io makes breaking changes to their UI and this extension stops working, please open an issue!
+- Adds copy markdown button to example sentences
+- Shows the first Bing images result on the back side of cards without an image \
+  (disabled by default, enable in settings)
+
+  **Warning:** Be aware that Bing's SafeSearch is far from perfect and if you have cards that may result in NSFW search results, there's a small but non-zero chance you might see something unpleasant on your cards. You've been warned.
+
+### Copy markdown button
 
 Example output:
 
