@@ -1,4 +1,4 @@
-const browser = "browser" in this ? browser : chrome;
+if (typeof browser === "undefined") var browser = chrome;
 const storage = browser.storage;
 
 storage.sync.get().then(options => {

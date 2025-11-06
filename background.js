@@ -1,4 +1,4 @@
-const browser = "browser" in this ? browser : chrome;
+if (typeof browser === "undefined") var browser = chrome;
 
 browser.runtime.onInstalled.addListener(() => {
 	browser.tabs.create({ url: browser.runtime.getURL("options.html") });
