@@ -4,6 +4,7 @@ const storage = browser.storage;
 storage.sync.get().then(options => {
 	if (options["copy.enabled"]) copy(options);
 	if (options["image.enabled"]) image(options);
+	if (options["style.enabled"]) style(options);
 });
 
 function copy({ "copy.bold": bold, "copy.english": english, "copy.blockquote": blockquote }) {
@@ -113,6 +114,18 @@ function image({}) {
 		}
 	};
 	refresh();
+}
+
+function style(options) {
+	const style = document.createElement("style");
+	let stylesheet = ":root{";
+	Object.entries(options)
+		.filter(([key, value]) => key.startsWith("style.") && key !== "style.enabled")
+		.map(([key, value]) => [key.substring(6), value])
+		.forEach(([parameter, color]) => stylesheet += `--${parameter}:${color};`)
+	stylesheet += "}";
+	style.innerHTML = stylesheet;
+	document.head.appendChild(style);
 }
 
 function furiganaToKanji(el) {

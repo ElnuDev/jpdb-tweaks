@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@view-transition {
+  navigation: auto;
+}
+
+* {
+	font-family: "Nunito", "Kosugi Maru", sans-serif !important;
+}
+
+img {
+	border-radius: 0.5rem;
+}
+
+.answer-box img, .result img {
+	max-width: 35%;
+	margin: auto;
+}
+
+.dark-mode {
+	--text-color: var(--fg0);
+	--background-color: var(--bg1);
+	--deeper-background-color: var(--bg0);
+	--link-color: var(--primary);
+	--outline-v1-color: var(--bad);
+	--outline-v2-color: var(--text);
+	--outline-v3-color: var(--hard);
+	--outline-v4-color: var(--ok);
+	--outline-input-color: var(--primary);
+	--button-focused-border-color: var(--fg1);
+	--button-hover-border-color: var(--primary);
+	--outline-input-shadow-color: var(--primary);
+	--input-focused-border-color: var(--primary);
+	--checkbox-color: var(--primary);
+	--checkbox-background-color: var(--bg0);
+	--checkbox-border-color: var(--bg2);
+	--input-background-color: var(--bg0);
+	--input-text-color: var(--fg0);
+	--scrollbar-color: var(--primary);
+	--scrollbar-background-color: var(--bg0);
+	--big-shadow-border: var(--bg0);
+	--progress-bar-foreground: var(--primary);
+	--progress-bar-in-progress: var(--bg-primary);
+	--progress-bar-background: var(--bg0);
+	--state-new: var(--info);
+	--state-known: var(--ok);
+	--state-overdue: var(--bad);
+	--state-failed: var(--bad);
+	--pitch-low-s: var(--pitch-low);
+	--pitch-high-s: var(--pitch-high);
+	--highlight-color: var(--bg-primary);
+	--button-background-color: var(--bg-primary);
+	--english-translation-color: var(--fg2);
+	--table-header-color: var(--fg2);
+	--property-text-color: var(--fg0);
+	--outline-input-background-color-review: none;
+}
+
+.review-button-group input:not(#show-answer) {
+	--outline-input-color: var(--easy);
+	--outline-input-shadow-color: var(--easy);
+	--button-focused-border-color: var(--easy);
+	--button-hover-border-color: var(--easy);
+}
+
+a.outline {
+	background: var(--deeper-background-color);
+}
+
+.side-button {
+	border: 1px solid var(--background-color);
+}
+
+input[type="submit"], input[type="button"] {
+	background: none;
+}
+
+#select-file-input-label {
+	background: none;
+}
+
+[style="color: red;"] {
+	color: var(--bad) !important;
+}
+
+
+canvas {
+	filter: hue-rotate(-10deg) sepia(0.5);
+}
+
+.deck-list > div {
+	box-shadow: none;
+	border-color: var(--bg0);
+}
+
+.tooltip::before {
+	background: var(--bg0);
+}
+
+.search .result, .entry {
+	--background-color: var(--bg2);
+	background: var(--background-color);
+}
+
+.entry {
+	box-shadow: none !important;
+}
+
+hr.visible ~ * {
+	display: none;
+}
