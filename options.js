@@ -1,7 +1,32 @@
 const storage = "browser" in window ? browser.storage : chrome.storage;
 
+const defaultTheme = "everforest";
 let themes;
 let themeSelect;
+
+async function saveTheme() {
+	const theme = Object.fromEntries(Object.entries(await storage.sync.get())
+		.filter(([key, value]) => key.startsWith("style."))
+		.map(([key, value]) => [key.substring(6), value]));
+
+	const fileType = "application/json";
+
+	const date = new Date();
+	const fileName = `jpdb-tweaks theme ${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.json`;
+
+	const json = JSON.stringify(theme, Object.keys(themes[defaultTheme]), "\t");
+	const blob = new Blob([json], { type: fileType });
+
+	const a = document.createElement("a");
+	a.download = fileName;
+	a.href = URL.createObjectURL(blob);
+	a.dataset.downloadurl = ["application/json", a.download, a.href].join(":");
+	a.style.display = "none";
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+	setTimeout(function () { URL.revokeObjectURL(a.href) }, 1500);
+}
 
 function setThemeSelectValue(value) {
 	themeSelect.value = value;
@@ -21,7 +46,6 @@ async function applyThemeToSelect() {
 }
 
 async function loadState() {
-	const defaultTheme = "everforest";
 	const defaults = {
 		"copy.enabled": true,
 		"copy.bold": true,
@@ -59,6 +83,7 @@ function setStateKey(key, value) {
 
 document.addEventListener("DOMContentLoaded", () => {
 	themeSelect = document.getElementById("style.theme");
+	document.getElementById("style.save").onclick = saveTheme;
 	document.getElementById("restoreDefaults").addEventListener("click", () => {
 		if (confirm("Are you sure you want to restore all settings to their defaults? This cannot be undone."))
 			storage.sync.clear().then(() => loadState().then(() => { }));
