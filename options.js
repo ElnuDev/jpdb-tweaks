@@ -83,6 +83,49 @@ function setStateKey(key, value) {
 
 document.addEventListener("DOMContentLoaded", () => {
 	themeSelect = document.getElementById("style.theme");
+	{
+		const loadInput = document.getElementById("style.loadInput");
+		document.getElementById("style.load").addEventListener("click", () => {
+			if (document.getElementById('style.theme').value === '' && !confirm('Are you sure you want to overwrite your custom theme? This cannot be undone.')) {
+				return;
+			}
+			loadInput.click();
+		});
+		loadInput.addEventListener("change", () => {
+			const file = loadInput.files[0];
+			if (!file) return;
+			const reader = new FileReader();
+			function handleError(error) { alert(`error loading theme file: ${error}`) }
+			reader.onerror = handleError;
+			reader.onload = () => {
+				try {
+					const theme = JSON.parse(reader.result);
+					const missingParameters = Object
+						.keys(themes[defaultTheme])
+						.filter(parameter => !(parameter in theme));
+					if (missingParameters.length > 0) {
+						handleError(`missing parameter${missingParameters.length === 1 ? "" : "s"} ${missingParameters.join(", ")}`);
+						return;
+					}
+					for (const [parameter, color] of Object.entries(theme)) {
+						if (!CSS.supports("color", color)) {
+							handleError(`parameter ${parameter} has invalid color value "${color}"`)
+							return;
+						}
+					}
+					for (const [parameter, color] of Object.entries(theme)) {
+						const colorInput = document.querySelector(`input[name="style.${parameter}"]`);
+						colorInput.value = color;
+						colorInput.dispatchEvent(new Event("change"));
+					}
+				} catch(error) {
+					console.error(error);
+					handleError(error);
+				}
+			}
+			reader.readAsText(file);
+		});
+	}
 	document.getElementById("style.save").onclick = saveTheme;
 	document.getElementById("restoreDefaults").addEventListener("click", () => {
 		if (confirm("Are you sure you want to restore all settings to their defaults? This cannot be undone."))
