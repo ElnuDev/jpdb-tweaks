@@ -1,36 +1,36 @@
 {
-  "manifest_version": 3,
-  "name": "jpdb.io tweaks",
-  "version": "0.3.0",
-  "author": "ElnuDev",
-  "homepage_url": "https://github.com/ElnuDev/jpdb-tweaks",
-  "description": "Simple tweaks for jpdb.io, a Japanese dictionary and spaced repetition system.",
-  "background": {
-    "scripts": ["background.js"]
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://jpdb.io/*"],
-      "js": ["main.js"],
-      "css": ["style.css"],
-      "run_at": "document_start"
-    }
-  ],
-  "host_permissions": [
-  	"https://www.bing.com/images/search"
-  ],
-  "icons": {
-    "16": "favicon16.png",
-    "32": "favicon32.png",
-    "48": "favicon48.png"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "jpdb-tweaks@elnu.com"
-    }
-  },
-  "permissions": [
-  	"storage"
-  ],
-  "options_page": "options.html"
+	"manifest_version": 3,
+	"name": "jpdb.io tweaks",
+	"version": "0.3.0",
+	"author": "ElnuDev",
+	"homepage_url": "https://github.com/ElnuDev/jpdb-tweaks",
+	"description": "Simple tweaks for jpdb.io, a Japanese dictionary and spaced repetition system.",
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"content_scripts": [
+		{
+			"matches": ["https://jpdb.io/*"],
+			"js": ["main.js"],
+			"css": ["style.css"],
+			"run_at": "document_start"
+		}
+	],
+	"host_permissions": [
+		"https://www.bing.com/images/search"
+	],
+	"icons": {
+		"16": "favicon16.png",
+		"32": "favicon32.png",
+		"48": "favicon48.png"
+	},
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "jpdb-tweaks@elnu.com"
+		}
+	},
+	"permissions": [
+		"storage"
+	],
+	"options_page": "options.html"
 }
